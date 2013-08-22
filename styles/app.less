@@ -1,0 +1,107 @@
+/*---------------------------------------------------
+  Variables
+----------------------------------------------------*/
+
+@font-family-baze: 'Roboto Slab', Helvetica, Arial, sans-serif;
+@font-size-base: 14px;
+@font-size-large: ceil(@font-size-base * 1.25); // 18px
+@font-weight-base: 400;
+
+@tab-color: #428bca;
+@tab-color-hover: #2a6496;
+@tab-color-active: #555555;
+@tab-bg-hover: #eeeeee;
+@tab-bg-active: #ffffff;
+
+@tab-border-color: #ffffff;
+@tab-border-color-active: #dddddd;
+
+/*---------------------------------------------------
+  Styles
+----------------------------------------------------*/
+
+body {
+  font-family: @font-family-baze;
+  font-size: @font-size-base;
+  font-weight: 400;
+}
+
+h1 { text-align: center; };
+
+.tabs > ul {
+  position: relative;
+  width: 650px;
+  margin: 75px auto;
+  list-style: none;
+
+  > li {
+    float: left;
+
+    > label {
+      position: relative;
+      z-index: 998;
+      display: block;
+      padding: 10px 15px;
+      margin-right: 5px;
+      font-size: @font-size-large;
+      font-weight: 700;
+      color: @tab-color;
+      cursor: pointer;
+      border-top: 1px solid @tab-border-color;
+      border-right: 1px solid @tab-border-color;
+      border-left: 1px solid @tab-border-color;
+      .border-radius(5px, 0, 0, 5px);
+
+      &:hover {
+        color: @tab-color-hover;
+        background: @tab-bg-hover;
+      }
+    }
+
+    > input[id^=tab] {
+      position: absolute;
+      top: -9999px;
+      left: -9999px;
+
+      &:checked {
+        + label {
+          z-index: 1000;
+          color: @tab-color-active;
+          background: @tab-bg-active;
+          border-color: @tab-border-color-active;
+        }
+
+        ~ [id^=tab-content] { display: block; }
+      }
+    }
+
+    > .tab-content {
+      position: absolute;
+      left: 0;
+      z-index: 999;
+      display: none;
+      width: 100%;
+      padding: 10px 0;
+      margin-top: -1px;
+      background: #ffffff;
+      border-top: 1px solid @tab-border-color-active;
+    }
+  }
+}
+
+/*---------------------------------------------------
+  Helpers
+----------------------------------------------------*/
+
+.rounded(@radius: 2px) {
+  -webkit-border-radius: @radius;
+     -moz-border-radius: @radius;
+          border-radius: @radius;
+}
+
+.border-radius(@topright: 0, @bottomright: 0, @bottomleft: 0, @topleft: 0) {
+     border-top-right-radius: @topright;
+  border-bottom-right-radius: @bottomright;
+   border-bottom-left-radius: @bottomleft;
+      border-top-left-radius: @topleft;
+}
